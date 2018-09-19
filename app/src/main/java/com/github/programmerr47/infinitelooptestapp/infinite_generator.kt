@@ -9,7 +9,7 @@ interface InfiniteGenerator {
 
 class PiInfiniteGenerator(
         private val piGenerator: PiGenerator,
-        private val saver: Saver
+        private val saver: Storage
 ) : InfiniteGenerator {
     private var curIndex = 0L
 
@@ -18,7 +18,6 @@ class PiInfiniteGenerator(
             try {
                 saver.store(piGenerator.generateDigit(curIndex))
                 curIndex++
-                Thread.sleep(1)
             } catch (e: InterruptedException) {
                 Thread.currentThread().interrupt()
             }
