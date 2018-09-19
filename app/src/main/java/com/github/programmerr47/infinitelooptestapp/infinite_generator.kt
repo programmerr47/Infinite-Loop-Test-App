@@ -1,5 +1,6 @@
 package com.github.programmerr47.infinitelooptestapp
 
+import android.os.Process
 import java.util.concurrent.Executors
 
 interface InfiniteGenerator {
@@ -13,9 +14,14 @@ class PiInfiniteGenerator(
     private var curIndex = 0L
 
     override fun startGenerating() {
-        while (true) {
-            saver.store(piGenerator.generateDigit(curIndex))
-            curIndex++
+        while (!Thread.currentThread().isInterrupted) {
+            try {
+                saver.store(piGenerator.generateDigit(curIndex))
+                curIndex++
+                Thread.sleep(1)
+            } catch (e: InterruptedException) {
+                Thread.currentThread().interrupt()
+            }
         }
     }
 }
@@ -27,6 +33,7 @@ class BackgroundInfiniteGenerator(
 
     override fun startGenerating() {
         executor.execute {
+            Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND)
             origin.startGenerating()
         }
     }
