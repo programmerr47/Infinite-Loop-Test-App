@@ -10,5 +10,5 @@ interface PiGenerator {
 class RandomPiGenerator : PiGenerator {
     private val rnd = Random()
 
-    override fun generateDigit(index: Long) = rnd.nextInt() % 10
+    override fun generateDigit(index: Long) = abs(rnd.nextInt() % 10)
 }
