@@ -20,6 +20,10 @@ class PeriodicStorageChecker(
         }, 0, defThresholdMs, MILLISECONDS)
     }
 
+    fun stop() {
+        timer.shutdown()
+    }
+
     companion object {
         private const val DEF_THRESHOLD_MS = 40L
     }

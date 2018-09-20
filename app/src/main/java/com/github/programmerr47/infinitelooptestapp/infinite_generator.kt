@@ -5,6 +5,7 @@ import java.util.concurrent.Executors
 
 interface InfiniteGenerator {
     fun startGenerating()
+    fun stopGenerating()
 }
 
 class PiInfiniteGenerator(
@@ -23,6 +24,10 @@ class PiInfiniteGenerator(
             }
         }
     }
+
+    override fun stopGenerating() {
+        Thread.currentThread().interrupt()
+    }
 }
 
 class BackgroundInfiniteGenerator(
@@ -35,5 +40,9 @@ class BackgroundInfiniteGenerator(
             Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND)
             origin.startGenerating()
         }
+    }
+
+    override fun stopGenerating() {
+        executor.shutdown()
     }
 }
