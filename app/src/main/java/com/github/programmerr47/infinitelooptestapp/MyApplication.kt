@@ -18,4 +18,5 @@ class MyApplication : Application() {
 class ServiceLocator {
     val uiHandler = Handler(Looper.getMainLooper())
     val piGenerator: PiGenerator by lazy { RandomPiGenerator() }
+    val memoryStorage: MemoryStorage by lazy { MemoryStorage() }
 }

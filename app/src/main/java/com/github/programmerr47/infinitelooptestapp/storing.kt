@@ -3,7 +3,7 @@ package com.github.programmerr47.infinitelooptestapp
 import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.BlockingQueue
 
-class Storage(
+class FixedBuffer(
         defaultCapacity: Int = 100
 ) {
     private val buffer: BlockingQueue<Int> = ArrayBlockingQueue(defaultCapacity)

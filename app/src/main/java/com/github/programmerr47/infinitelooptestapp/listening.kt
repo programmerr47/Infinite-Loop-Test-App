@@ -26,3 +26,13 @@ class LogGenListener(
         Log.v("MYGENERATOR", "LogGenListener.onNewPortion is finished. Length (ms) = ${diffNano / 1_000_000}")
     }
 }
+
+class GenListenerCompositor(
+        vararg origins: GenListener
+) : GenListener {
+    private val origins = origins.toList()
+
+    override fun onNewPortion(portion: List<Int>) {
+        origins.forEach { it.onNewPortion(portion) }
+    }
+}

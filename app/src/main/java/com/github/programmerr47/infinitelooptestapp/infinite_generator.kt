@@ -9,14 +9,14 @@ interface InfiniteGenerator {
 
 class PiInfiniteGenerator(
         private val piGenerator: PiGenerator,
-        private val saver: Storage
+        private val buffer: FixedBuffer
 ) : InfiniteGenerator {
     private var curIndex = 0L
 
     override fun startGenerating() {
         while (!Thread.currentThread().isInterrupted) {
             try {
-                saver.store(piGenerator.generateDigit(curIndex))
+                buffer.store(piGenerator.generateDigit(curIndex))
                 curIndex++
             } catch (e: InterruptedException) {
                 Thread.currentThread().interrupt()
